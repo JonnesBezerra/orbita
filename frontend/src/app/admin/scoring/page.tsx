@@ -34,10 +34,17 @@ export default function Scoring() {
     }
 
     Promise.all([
-      fetch("http://localhost:3001/challenges", {
-        headers: { Authorization: `Bearer ${token}` },
-      }),
-      fetch("http://localhost:3001/units/leaderboard"),
+      fetch(
+        (process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001") +
+          "/challenges",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      ),
+      fetch(
+        (process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001") +
+          "/units/leaderboard",
+      ),
     ])
       .then(async ([resChallenges, resUnits]) => {
         if (!resChallenges.ok) throw new Error("Failed auth");
@@ -79,7 +86,7 @@ export default function Scoring() {
 
     try {
       const res = await fetch(
-        `http://localhost:3001/challenges/${selectedChallenge._id}/completions`,
+        `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001"}/challenges/${selectedChallenge._id}/completions`,
         {
           method: "PUT",
           headers: {

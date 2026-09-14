@@ -22,7 +22,7 @@ export default function Leaderboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3001/units/leaderboard")
+    fetch((process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001") + "/units/leaderboard")
       .then((res) => res.json())
       .then((data) => {
         setUnits(data);

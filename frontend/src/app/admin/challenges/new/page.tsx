@@ -24,7 +24,7 @@ export default function NewChallenge() {
     }
 
     try {
-      const res = await fetch("http://localhost:3001/challenges", {
+      const res = await fetch((process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001") + "/challenges", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
