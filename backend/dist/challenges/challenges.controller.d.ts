@@ -8,5 +8,8 @@ export declare class ChallengesController {
         description: string;
         pointValue: number;
     }): Promise<import("./schemas/challenge.schema").ChallengeDocument>;
-    updateCompletions(id: string, unitIds: string[]): Promise<import("./schemas/challenge.schema").ChallengeDocument>;
+    updateCompletions(id: string, completions: {
+        unitId: string;
+        status: 'on_time' | 'late';
+    }[]): Promise<import("./schemas/challenge.schema").ChallengeDocument>;
 }

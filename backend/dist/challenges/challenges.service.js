@@ -30,17 +30,46 @@ let ChallengesService = class ChallengesService {
         const created = new this.challengeModel({ ...createDto, completedBy: [] });
         return created.save();
     }
-    async updateCompletions(challengeId, unitIds) {
+    async updateCompletions(challengeId, completions) {
         const challenge = await this.challengeModel.findById(challengeId);
         if (!challenge) {
             throw new common_1.NotFoundException('Challenge not found');
         }
-        const newUnitObjectIds = unitIds.map(id => new mongoose_2.Types.ObjectId(id));
-        await this.unitModel.updateMany({ _id: { $in: challenge.completedBy } }, { $inc: { totalPoints: -challenge.pointValue } });
-        challenge.completedBy = newUnitObjectIds;
+        completions = completions || [];
+        challenge.completedBy = challenge.completedBy || [];
+        const revertOperations = challenge.completedBy.map((completion) => {
+            const points = completion.status === 'on_time'
+                ? challenge.pointValue
+                : Math.round(challenge.pointValue * 0.25);
+            return {
+                updateOne: {
+                    filter: { _id: completion.unitId },
+                    update: { $inc: { totalPoints: -points } },
+                },
+            };
+        });
+        if (revertOperations.length > 0) {
+            await this.unitModel.bulkWrite(revertOperations);
+        }
+        const newCompletions = completions.map((c) => ({
+            unitId: new mongoose_2.Types.ObjectId(c.unitId),
+            status: c.status,
+        }));
+        challenge.completedBy = newCompletions;
         await challenge.save();
-        if (newUnitObjectIds.length > 0) {
-            await this.unitModel.updateMany({ _id: { $in: newUnitObjectIds } }, { $inc: { totalPoints: challenge.pointValue } });
+        const addOperations = newCompletions.map((completion) => {
+            const points = completion.status === 'on_time'
+                ? challenge.pointValue
+                : Math.round(challenge.pointValue * 0.25);
+            return {
+                updateOne: {
+                    filter: { _id: completion.unitId },
+                    update: { $inc: { totalPoints: points } },
+                },
+            };
+        });
+        if (addOperations.length > 0) {
+            await this.unitModel.bulkWrite(addOperations);
         }
         return challenge;
     }

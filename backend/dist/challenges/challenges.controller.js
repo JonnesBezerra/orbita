@@ -26,8 +26,8 @@ let ChallengesController = class ChallengesController {
     create(createDto) {
         return this.challengesService.create(createDto);
     }
-    updateCompletions(id, unitIds) {
-        return this.challengesService.updateCompletions(id, unitIds);
+    updateCompletions(id, completions) {
+        return this.challengesService.updateCompletions(id, completions);
     }
 };
 exports.ChallengesController = ChallengesController;
@@ -47,7 +47,7 @@ __decorate([
 __decorate([
     (0, common_1.Put)(':id/completions'),
     __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)('unitIds')),
+    __param(1, (0, common_1.Body)('completions')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Array]),
     __metadata("design:returntype", void 0)

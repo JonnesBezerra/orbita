@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Put, Body, Param, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Body,
+  Param,
+  UseGuards,
+} from '@nestjs/common';
 import { ChallengesService } from './challenges.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
@@ -13,13 +21,23 @@ export class ChallengesController {
   }
 
   @Post()
-  create(@Body() createDto: { title: string; description: string; pointValue: number }) {
+  create(
+    @Body()
+    createDto: {
+      title: string;
+      description: string;
+      pointValue: number;
+    },
+  ) {
     return this.challengesService.create(createDto);
   }
 
   @Put(':id/completions')
-  updateCompletions(@Param('id') id: string, @Body('unitIds') unitIds: string[]) {
-    return this.challengesService.updateCompletions(id, unitIds);
+  updateCompletions(
+    @Param('id') id: string,
+    @Body('completions')
+    completions: { unitId: string; status: 'on_time' | 'late' }[],
+  ) {
+    return this.challengesService.updateCompletions(id, completions);
   }
 }
-

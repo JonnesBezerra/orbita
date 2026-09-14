@@ -11,5 +11,8 @@ export declare class ChallengesService {
         description: string;
         pointValue: number;
     }): Promise<ChallengeDocument>;
-    updateCompletions(challengeId: string, unitIds: string[]): Promise<ChallengeDocument>;
+    updateCompletions(challengeId: string, completions: {
+        unitId: string;
+        status: 'on_time' | 'late';
+    }[]): Promise<ChallengeDocument>;
 }

@@ -28,7 +28,14 @@ __decorate([
     __metadata("design:type", Number)
 ], Challenge.prototype, "pointValue", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ type: [{ type: mongoose_2.Types.ObjectId, ref: 'Unit' }] }),
+    (0, mongoose_1.Prop)({
+        type: [
+            {
+                unitId: { type: mongoose_2.Types.ObjectId, ref: 'Unit' },
+                status: { type: String, enum: ['on_time', 'late'] },
+            },
+        ],
+    }),
     __metadata("design:type", Array)
 ], Challenge.prototype, "completedBy", void 0);
 exports.Challenge = Challenge = __decorate([

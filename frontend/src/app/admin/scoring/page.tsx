@@ -7,11 +7,12 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 type Unit = { _id: string; name: string; color: string };
+type Completion = { unitId: string; status: "on_time" | "late" };
 type Challenge = {
   _id: string;
   title: string;
   pointValue: number;
-  completedBy: string[];
+  completedBy: Completion[];
 };
 
 export default function Scoring() {
@@ -20,9 +21,9 @@ export default function Scoring() {
   const [selectedChallenge, setSelectedChallenge] = useState<Challenge | null>(
     null,
   );
-  const [completedUnitIds, setCompletedUnitIds] = useState<Set<string>>(
-    new Set(),
-  );
+  const [completions, setCompletions] = useState<
+    Map<string, "on_time" | "late">
+  >(new Map());
   const router = useRouter();
 
   useEffect(() => {
@@ -48,19 +49,33 @@ export default function Scoring() {
 
   const handleSelectChallenge = (challenge: Challenge) => {
     setSelectedChallenge(challenge);
-    setCompletedUnitIds(new Set(challenge.completedBy));
+    const newCompletions = new Map<string, "on_time" | "late">();
+    challenge.completedBy.forEach((c) =>
+      newCompletions.set(c.unitId, c.status),
+    );
+    setCompletions(newCompletions);
   };
 
   const toggleUnit = (unitId: string) => {
-    const newSet = new Set(completedUnitIds);
-    if (newSet.has(unitId)) newSet.delete(unitId);
-    else newSet.add(unitId);
-    setCompletedUnitIds(newSet);
+    const newCompletions = new Map(completions);
+    const current = newCompletions.get(unitId);
+    if (!current) {
+      newCompletions.set(unitId, "on_time");
+    } else if (current === "on_time") {
+      newCompletions.set(unitId, "late");
+    } else {
+      newCompletions.delete(unitId);
+    }
+    setCompletions(newCompletions);
   };
 
   const handleSave = async () => {
     if (!selectedChallenge) return;
     const token = localStorage.getItem("token");
+
+    const payloadCompletions = Array.from(completions.entries()).map(
+      ([unitId, status]) => ({ unitId, status }),
+    );
 
     try {
       const res = await fetch(
@@ -71,16 +86,15 @@ export default function Scoring() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ unitIds: Array.from(completedUnitIds) }),
+          body: JSON.stringify({ completions: payloadCompletions }),
         },
       );
 
       if (res.ok) {
-        // Update local state
         setChallenges(
           challenges.map((c) =>
             c._id === selectedChallenge._id
-              ? { ...c, completedBy: Array.from(completedUnitIds) }
+              ? { ...c, completedBy: payloadCompletions }
               : c,
           ),
         );
@@ -155,29 +169,52 @@ export default function Scoring() {
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {units.map((unit) => {
-              const isCompleted = completedUnitIds.has(unit._id);
+              const status = completions.get(unit._id);
+              const isCompleted = !!status;
+
+              let bgColor = "#f8fafc";
+              let borderColor = "#e2e8f0";
+              let textColor = "#64748b";
+              let statusText = "Not Completed";
+
+              if (status === "on_time") {
+                bgColor = `${unit.color}20`;
+                borderColor = unit.color;
+                textColor = unit.color;
+                statusText = "On Time (100%)";
+              } else if (status === "late") {
+                bgColor = "#fef3c7";
+                borderColor = "#f59e0b";
+                textColor = "#d97706";
+                statusText = "Late (25%)";
+              }
+
               return (
                 <div
                   key={unit._id}
                   onClick={() => toggleUnit(unit._id)}
-                  className={`p-6 rounded-2xl cursor-pointer transition-all border-4 text-center select-none ${
+                  className={`p-6 rounded-2xl cursor-pointer transition-all border-4 text-center select-none flex flex-col justify-center items-center ${
                     isCompleted
                       ? "scale-105 shadow-lg border-b-[6px]"
                       : "opacity-50 grayscale hover:grayscale-0"
                   }`}
                   style={{
-                    borderColor: isCompleted ? unit.color : "#e2e8f0",
-                    backgroundColor: isCompleted
-                      ? `${unit.color}20`
-                      : "#f8fafc",
+                    borderColor: borderColor,
+                    backgroundColor: bgColor,
                   }}
                 >
                   <h3
-                    className="text-2xl font-black"
-                    style={{ color: isCompleted ? unit.color : "#64748b" }}
+                    className="text-2xl font-black mb-2"
+                    style={{ color: textColor }}
                   >
                     {unit.name}
                   </h3>
+                  <span
+                    className="text-sm font-bold opacity-90"
+                    style={{ color: textColor }}
+                  >
+                    {statusText}
+                  </span>
                 </div>
               );
             })}
