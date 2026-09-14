@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -8,24 +8,32 @@ import { Card } from "@/components/ui/card";
 
 export default function AdminDashboard() {
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
+  const token = useSyncExternalStore(
+    (onStoreChange) => {
+      const handleStorage = (event: StorageEvent) => {
+        if (event.key === "token") onStoreChange();
+      };
+
+      window.addEventListener("storage", handleStorage);
+      return () => window.removeEventListener("storage", handleStorage);
+    },
+    () => localStorage.getItem("token"),
+    () => null,
+  );
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
     if (!token) {
       router.push("/login");
-    } else {
-      setLoading(false);
     }
   }, [router]);
 
-  if (loading) return null;
+  if (!token) return null;
 
   return (
     <div className="min-h-screen bg-slate-100 p-8">
       <div className="max-w-4xl mx-auto">
-        <div className="flex justify-between items-center mb-10 bg-white p-6 rounded-3xl border-b-[6px] border-slate-300 shadow-sm">
-          <h1 className="text-4xl font-black text-slate-800">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 mb-10 bg-white p-6 rounded-3xl border-b-[6px] border-slate-300 shadow-sm text-center sm:text-left">
+          <h1 className="text-3xl sm:text-4xl font-black text-slate-800">
             Admin Dashboard
           </h1>
           <Button
@@ -42,8 +50,8 @@ export default function AdminDashboard() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <Card className="p-8 rounded-3xl border-b-[8px] border-green-700 bg-green-500 text-white flex flex-col items-center text-center hover:scale-105 transition-transform">
-            <h2 className="text-3xl font-black mb-4">Criar Desafio</h2>
-            <p className="text-lg font-bold mb-8 opacity-90">
+            <h2 className="text-3xl font-black mb-0 sm:mb-4">Criar Desafio</h2>
+            <p className="text-lg font-bold mb-0 opacity-90 sm:mb-8">
               Adicione um novo desafio para as unidades completarem
             </p>
             <Link href="/admin/challenges/new" className="w-full">
@@ -54,8 +62,8 @@ export default function AdminDashboard() {
           </Card>
 
           <Card className="p-8 rounded-3xl border-b-[8px] border-purple-700 bg-purple-500 text-white flex flex-col items-center text-center hover:scale-105 transition-transform">
-            <h2 className="text-3xl font-black mb-4">Score dos Desafios</h2>
-            <p className="text-lg font-bold mb-8 opacity-90">
+            <h2 className="text-3xl font-black mb-0 sm:mb-4">Score dos Desafios</h2>
+            <p className="text-lg font-bold mb-0 opacity-90 sm:mb-8">
               Marque unidades como concluídas e atribua pontos
             </p>
             <Link href="/admin/scoring" className="w-full">

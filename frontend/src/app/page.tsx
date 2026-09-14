@@ -108,7 +108,7 @@ export default function Leaderboard() {
                   {unit.totalPoints}
                 </p>
                 <p className="text-xl font-bold text-slate-500 uppercase tracking-widest flex justify-center">
-                  Points
+                  Pontos
                 </p>
               </div>
             </Card>

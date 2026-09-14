@@ -55,44 +55,44 @@ export default function NewChallenge() {
             variant="outline"
             className="rounded-xl px-6 text-lg border-2"
           >
-            ← Back to Dashboard
+            ← Voltar para Dashboard
           </Button>
         </Link>
       </div>
 
       <Card className="w-full max-w-2xl p-8 rounded-3xl border-b-[8px] border-green-800 bg-white">
         <h1 className="text-4xl font-black text-slate-800 mb-8 text-center">
-          Create Challenge
+          Criar Desafio
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <Label className="text-xl font-bold text-slate-700">Title</Label>
+            <Label className="text-xl font-bold text-slate-700">Título</Label>
             <Input
               required
               className="text-xl p-6 rounded-2xl border-4 border-slate-200 focus-visible:ring-0 focus-visible:border-green-500 font-bold"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="e.g. Knots Relay"
+              placeholder="e.g. Nós & Amarras"
             />
           </div>
 
           <div className="space-y-2">
             <Label className="text-xl font-bold text-slate-700">
-              Description
+              Descrição
             </Label>
             <Input
               required
               className="text-xl p-6 rounded-2xl border-4 border-slate-200 focus-visible:ring-0 focus-visible:border-green-500 font-bold"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Complete 5 basic knots"
+              placeholder="Completar 5 nós básicos"
             />
           </div>
 
           <div className="space-y-2">
             <Label className="text-xl font-bold text-slate-700">
-              Point Value
+              Valor em Pontos
             </Label>
             <Input
               type="number"
@@ -109,7 +109,7 @@ export default function NewChallenge() {
             type="submit"
             className="w-full text-2xl py-8 rounded-2xl bg-green-500 hover:bg-green-400 border-b-4 border-green-700 active:border-b-0 active:translate-y-1"
           >
-            Create Challenge
+            Criar
           </Button>
         </form>
       </Card>

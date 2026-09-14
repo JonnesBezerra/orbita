@@ -106,17 +106,19 @@ export default function Scoring() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 p-8 flex flex-col items-center">
-      <div className="w-full max-w-5xl mb-6 flex justify-between items-center">
-        <Link href="/admin">
+    <div className="min-h-screen bg-slate-100 p-4 sm:p-8 flex flex-col items-center overflow-x-hidden">
+      <div className="w-full max-w-5xl mb-8 flex flex-col items-center sm:flex-row sm:justify-between gap-4">
+        <Link href="/admin" className="w-full sm:w-auto">
           <Button
             variant="outline"
-            className="rounded-xl px-6 text-lg border-2"
+            className="w-full sm:w-auto rounded-xl px-6 py-6 sm:py-4 text-lg border-2 shadow-sm"
           >
-            ← Back to Dashboard
+            ← Voltar para Dashboard
           </Button>
         </Link>
-        <h1 className="text-4xl font-black text-slate-800">Scoring</h1>
+        <h1 className="text-4xl font-black text-slate-800 text-center w-full sm:w-auto">
+          Scoring
+        </h1>
       </div>
 
       {!selectedChallenge ? (
@@ -133,41 +135,41 @@ export default function Scoring() {
                   {challenge.pointValue} pts
                 </p>
                 <p className="font-bold opacity-80">
-                  {challenge.completedBy.length}/{units.length} completed
+                  {challenge.completedBy.length}/{units.length} completos
                 </p>
               </div>
             </Card>
           ))}
         </div>
       ) : (
-        <div className="w-full max-w-5xl bg-white p-8 rounded-3xl border-b-[8px] border-slate-300 shadow-sm">
-          <div className="flex justify-between items-center mb-8">
-            <div>
-              <h2 className="text-3xl font-black text-slate-800">
+        <div className="w-full max-w-5xl bg-white p-4 sm:p-8 rounded-3xl border-b-[8px] border-slate-300 shadow-sm">
+          <div className="flex flex-col items-center sm:flex-row sm:justify-between gap-6 mb-10 w-full text-center sm:text-left">
+            <div className="w-full sm:w-auto">
+              <h2 className="text-3xl sm:text-4xl font-black text-slate-800 break-words">
                 {selectedChallenge.title}
               </h2>
-              <p className="text-xl font-bold text-slate-500">
-                {selectedChallenge.pointValue} Points
+              <p className="text-xl sm:text-2xl font-bold text-slate-500 mt-1">
+                {selectedChallenge.pointValue} Pontos
               </p>
             </div>
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
               <Button
                 variant="outline"
                 onClick={() => setSelectedChallenge(null)}
-                className="rounded-xl text-lg px-6"
+                className="w-full sm:w-auto rounded-xl text-lg py-6 sm:py-4 px-6 shadow-sm border-2"
               >
-                Cancel
+                Cancelar
               </Button>
               <Button
                 onClick={handleSave}
-                className="rounded-xl text-lg px-8 bg-green-500 hover:bg-green-400 border-green-700"
+                className="w-full sm:w-auto rounded-xl text-lg py-6 sm:py-4 px-8 bg-green-500 hover:bg-green-400 border-green-700 shadow-sm"
               >
-                Save Scores
+                Salvar Pontuação
               </Button>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
             {units.map((unit) => {
               const status = completions.get(unit._id);
               const isCompleted = !!status;
@@ -175,25 +177,25 @@ export default function Scoring() {
               let bgColor = "#f8fafc";
               let borderColor = "#e2e8f0";
               let textColor = "#64748b";
-              let statusText = "Not Completed";
+              let statusText = "Não Concluído";
 
               if (status === "on_time") {
-                bgColor = `${unit.color}20`;
-                borderColor = unit.color;
-                textColor = unit.color;
-                statusText = "On Time (100%)";
+                bgColor = "#dcfce7";
+                borderColor = "#22c55e";
+                textColor = "#15803d";
+                statusText = "Em Tempo";
               } else if (status === "late") {
                 bgColor = "#fef3c7";
                 borderColor = "#f59e0b";
                 textColor = "#d97706";
-                statusText = "Late (25%)";
+                statusText = "Atrasado";
               }
 
               return (
                 <div
                   key={unit._id}
                   onClick={() => toggleUnit(unit._id)}
-                  className={`p-6 rounded-2xl cursor-pointer transition-all border-4 text-center select-none flex flex-col justify-center items-center ${
+                  className={`p-3 sm:p-6 rounded-2xl cursor-pointer transition-all border-4 text-center select-none flex flex-col justify-center items-center ${
                     isCompleted
                       ? "scale-105 shadow-lg border-b-[6px]"
                       : "opacity-50 grayscale hover:grayscale-0"
@@ -204,13 +206,13 @@ export default function Scoring() {
                   }}
                 >
                   <h3
-                    className="text-2xl font-black mb-2"
+                    className="text-lg sm:text-2xl font-black mb-1 sm:mb-2 leading-tight break-words"
                     style={{ color: textColor }}
                   >
                     {unit.name}
                   </h3>
                   <span
-                    className="text-sm font-bold opacity-90"
+                    className="text-xs sm:text-sm font-bold opacity-90"
                     style={{ color: textColor }}
                   >
                     {statusText}
