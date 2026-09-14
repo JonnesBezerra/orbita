@@ -8,11 +8,14 @@ export class Unit {
   @Prop({ required: true, unique: true })
   name: string;
 
-  @Prop({ required: true, enum: ['Boys', 'Girls'] })
+  @Prop({ required: true, enum: ['Masculino', 'Feminino'] })
   category: string;
 
   @Prop({ required: true })
   color: string;
+
+  @Prop({ required: true })
+  class: string;
 
   @Prop({ required: true })
   logoUrl: string;
@@ -22,4 +25,3 @@ export class Unit {
 }
 
 export const UnitSchema = SchemaFactory.createForClass(Unit);
-

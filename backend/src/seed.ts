@@ -8,7 +8,7 @@ import * as bcrypt from 'bcryptjs';
 
 async function bootstrap() {
   const app = await NestFactory.createApplicationContext(AppModule);
-  
+
   const userModel = app.get<Model<User>>(getModelToken(User.name));
   const unitModel = app.get<Model<Unit>>(getModelToken(Unit.name));
 
@@ -32,26 +32,91 @@ async function bootstrap() {
       passwordHash,
       name: 'Secretary',
       role: 'Secretary',
-    }
+    },
   ]);
 
   console.log('Seeding Units...');
   const boysUnits = [
-    { name: 'Leão', category: 'Boys', color: '#EF4444', logoUrl: '/placeholder.png' }, // Red-500
-    { name: 'Tigre', category: 'Boys', color: '#F97316', logoUrl: '/placeholder.png' }, // Orange-500
-    { name: 'Águia', category: 'Boys', color: '#EAB308', logoUrl: '/placeholder.png' }, // Yellow-500
-    { name: 'Falcão', category: 'Boys', color: '#22C55E', logoUrl: '/placeholder.png' }, // Green-500
-    { name: 'Urso', category: 'Boys', color: '#3B82F6', logoUrl: '/placeholder.png' }, // Blue-500
-    { name: 'Lobo', category: 'Boys', color: '#6366F1', logoUrl: '/placeholder.png' }, // Indigo-500
+    {
+      name: 'Centaurus',
+      category: 'Masculino',
+      color: '#EF4444',
+      class: 'Amigo',
+      logoUrl: '/placeholder.png',
+    }, // Red-500
+    {
+      name: 'Pegasus',
+      category: 'Masculino',
+      color: '#F97316',
+      class: 'Companheiro',
+      logoUrl: '/placeholder.png',
+    }, // Orange-500
+    {
+      name: 'Argus',
+      category: 'Masculino',
+      color: '#EAB308',
+      class: 'Pesquisador',
+      logoUrl: '/placeholder.png',
+    }, // Yellow-500
+    {
+      name: 'Corvus',
+      category: 'Masculino',
+      color: '#22C55E',
+      class: 'Pioneiro',
+      logoUrl: '/placeholder.png',
+    }, // Green-500
+    {
+      name: 'Taurus',
+      category: 'Masculino',
+      color: '#3B82F6',
+      class: 'Excursionista',
+      logoUrl: '/placeholder.png',
+    }, // Blue-500
   ];
 
   const girlsUnits = [
-    { name: 'Orquídea', category: 'Girls', color: '#EC4899', logoUrl: '/placeholder.png' }, // Pink-500
-    { name: 'Rosa', category: 'Girls', color: '#F43F5E', logoUrl: '/placeholder.png' }, // Rose-500
-    { name: 'Lírio', category: 'Girls', color: '#D946EF', logoUrl: '/placeholder.png' }, // Fuchsia-500
-    { name: 'Margarida', category: 'Girls', color: '#A855F7', logoUrl: '/placeholder.png' }, // Purple-500
-    { name: 'Girassol', category: 'Girls', color: '#14B8A6', logoUrl: '/placeholder.png' }, // Teal-500
-    { name: 'Violeta', category: 'Girls', color: '#06B6D4', logoUrl: '/placeholder.png' }, // Cyan-500
+    {
+      name: 'Ursa Menor',
+      category: 'Feminino',
+      color: '#EC4899',
+      class: 'Amigo',
+      logoUrl: '/placeholder.png',
+    }, // Pink-500
+    {
+      name: 'Andrômeda',
+      category: 'Feminino',
+      color: '#F43F5E',
+      class: 'Companheiro',
+      logoUrl: '/placeholder.png',
+    }, // Rose-500
+    {
+      name: 'Aquarius',
+      category: 'Feminino',
+      color: '#D946EF',
+      class: 'Pesquisador',
+      logoUrl: '/placeholder.png',
+    }, // Fuchsia-500
+    {
+      name: 'Orion',
+      category: 'Feminino',
+      color: '#A855F7',
+      class: 'Pioneiro',
+      logoUrl: '/placeholder.png',
+    }, // Purple-500
+    {
+      name: 'Lira',
+      category: 'Feminino',
+      color: '#14B8A6',
+      class: 'Excursionista',
+      logoUrl: '/placeholder.png',
+    }, // Teal-500
+    {
+      name: 'Ursa Maior',
+      category: 'Feminino',
+      color: '#06B6D4',
+      class: 'Guia',
+      logoUrl: '/placeholder.png',
+    }, // Cyan-500
   ];
 
   await unitModel.create([...boysUnits, ...girlsUnits]);
@@ -61,4 +126,3 @@ async function bootstrap() {
 }
 
 bootstrap();
-

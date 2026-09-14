@@ -7,15 +7,18 @@ import { Button } from "@/components/ui/button";
 type Unit = {
   _id: string;
   name: string;
-  category: "Boys" | "Girls";
+  category: "Masculino" | "Feminino";
   color: string;
+  class: string;
   logoUrl: string;
   totalPoints: number;
 };
 
 export default function Leaderboard() {
   const [units, setUnits] = useState<Unit[]>([]);
-  const [filter, setFilter] = useState<"Overall" | "Boys" | "Girls">("Overall");
+  const [filter, setFilter] = useState<"Overall" | "Masculino" | "Feminino">(
+    "Overall",
+  );
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -43,27 +46,27 @@ export default function Leaderboard() {
         <span className="text-yellow-500 text-6xl">Leaderboard</span>
       </h1>
 
-      <div className="flex gap-4 mb-10">
+      <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-10 w-full max-w-lg">
         <Button
           variant={filter === "Overall" ? "default" : "outline"}
           onClick={() => setFilter("Overall")}
-          className="text-lg px-8 py-6 rounded-2xl"
+          className="text-base sm:text-lg px-4 sm:px-8 py-5 sm:py-6 rounded-2xl flex-1 min-w-[100px]"
         >
           Overall
         </Button>
         <Button
-          variant={filter === "Boys" ? "default" : "outline"}
-          onClick={() => setFilter("Boys")}
-          className="text-lg px-8 py-6 rounded-2xl bg-blue-500 border-blue-700 hover:bg-blue-400"
+          variant={filter === "Masculino" ? "default" : "outline"}
+          onClick={() => setFilter("Masculino")}
+          className="text-base sm:text-lg px-4 sm:px-8 py-5 sm:py-6 rounded-2xl bg-blue-500 border-blue-700 hover:bg-blue-400 flex-1 min-w-[100px]"
         >
-          Boys
+          Masculino
         </Button>
         <Button
-          variant={filter === "Girls" ? "default" : "outline"}
-          onClick={() => setFilter("Girls")}
-          className="text-lg px-8 py-6 rounded-2xl bg-pink-500 border-pink-700 hover:bg-pink-400"
+          variant={filter === "Feminino" ? "default" : "outline"}
+          onClick={() => setFilter("Feminino")}
+          className="text-base sm:text-lg px-4 sm:px-8 py-5 sm:py-6 rounded-2xl bg-pink-500 border-pink-700 hover:bg-pink-400 flex-1 min-w-[100px]"
         >
-          Girls
+          Feminino
         </Button>
       </div>
 
@@ -97,7 +100,7 @@ export default function Leaderboard() {
                     {unit.name}
                   </h2>
                   <p className="text-lg font-bold text-slate-500">
-                    {unit.category}
+                    {unit.class} {unit.category}
                   </p>
                 </div>
               </div>

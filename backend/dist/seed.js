@@ -28,24 +28,89 @@ async function bootstrap() {
             passwordHash,
             name: 'Secretary',
             role: 'Secretary',
-        }
+        },
     ]);
     console.log('Seeding Units...');
     const boysUnits = [
-        { name: 'Leão', category: 'Boys', color: '#EF4444', logoUrl: '/placeholder.png' },
-        { name: 'Tigre', category: 'Boys', color: '#F97316', logoUrl: '/placeholder.png' },
-        { name: 'Águia', category: 'Boys', color: '#EAB308', logoUrl: '/placeholder.png' },
-        { name: 'Falcão', category: 'Boys', color: '#22C55E', logoUrl: '/placeholder.png' },
-        { name: 'Urso', category: 'Boys', color: '#3B82F6', logoUrl: '/placeholder.png' },
-        { name: 'Lobo', category: 'Boys', color: '#6366F1', logoUrl: '/placeholder.png' },
+        {
+            name: 'Centaurus',
+            category: 'Masculino',
+            color: '#EF4444',
+            class: 'Amigo',
+            logoUrl: '/placeholder.png',
+        },
+        {
+            name: 'Pegasus',
+            category: 'Masculino',
+            color: '#F97316',
+            class: 'Companheiro',
+            logoUrl: '/placeholder.png',
+        },
+        {
+            name: 'Argus',
+            category: 'Masculino',
+            color: '#EAB308',
+            class: 'Pesquisador',
+            logoUrl: '/placeholder.png',
+        },
+        {
+            name: 'Corvus',
+            category: 'Masculino',
+            color: '#22C55E',
+            class: 'Pioneiro',
+            logoUrl: '/placeholder.png',
+        },
+        {
+            name: 'Taurus',
+            category: 'Masculino',
+            color: '#3B82F6',
+            class: 'Excursionista',
+            logoUrl: '/placeholder.png',
+        },
     ];
     const girlsUnits = [
-        { name: 'Orquídea', category: 'Girls', color: '#EC4899', logoUrl: '/placeholder.png' },
-        { name: 'Rosa', category: 'Girls', color: '#F43F5E', logoUrl: '/placeholder.png' },
-        { name: 'Lírio', category: 'Girls', color: '#D946EF', logoUrl: '/placeholder.png' },
-        { name: 'Margarida', category: 'Girls', color: '#A855F7', logoUrl: '/placeholder.png' },
-        { name: 'Girassol', category: 'Girls', color: '#14B8A6', logoUrl: '/placeholder.png' },
-        { name: 'Violeta', category: 'Girls', color: '#06B6D4', logoUrl: '/placeholder.png' },
+        {
+            name: 'Ursa Menor',
+            category: 'Feminino',
+            color: '#EC4899',
+            class: 'Amigo',
+            logoUrl: '/placeholder.png',
+        },
+        {
+            name: 'Andrômeda',
+            category: 'Feminino',
+            color: '#F43F5E',
+            class: 'Companheiro',
+            logoUrl: '/placeholder.png',
+        },
+        {
+            name: 'Aquarius',
+            category: 'Feminino',
+            color: '#D946EF',
+            class: 'Pesquisador',
+            logoUrl: '/placeholder.png',
+        },
+        {
+            name: 'Orion',
+            category: 'Feminino',
+            color: '#A855F7',
+            class: 'Pioneiro',
+            logoUrl: '/placeholder.png',
+        },
+        {
+            name: 'Lira',
+            category: 'Feminino',
+            color: '#14B8A6',
+            class: 'Excursionista',
+            logoUrl: '/placeholder.png',
+        },
+        {
+            name: 'Ursa Maior',
+            category: 'Feminino',
+            color: '#06B6D4',
+            class: 'Guia',
+            logoUrl: '/placeholder.png',
+        },
     ];
     await unitModel.create([...boysUnits, ...girlsUnits]);
     console.log('Database seeded successfully!');

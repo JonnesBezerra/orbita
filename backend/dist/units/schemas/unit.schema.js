@@ -19,13 +19,17 @@ __decorate([
     __metadata("design:type", String)
 ], Unit.prototype, "name", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, enum: ['Boys', 'Girls'] }),
+    (0, mongoose_1.Prop)({ required: true, enum: ['Masculino', 'Feminino'] }),
     __metadata("design:type", String)
 ], Unit.prototype, "category", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], Unit.prototype, "color", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], Unit.prototype, "class", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)

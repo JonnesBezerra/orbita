@@ -4,6 +4,7 @@ export declare class Unit {
     name: string;
     category: string;
     color: string;
+    class: string;
     logoUrl: string;
     totalPoints: number;
 }
