@@ -42,8 +42,7 @@ export default function Leaderboard() {
   return (
     <div className="min-h-screen bg-gray-100 py-10 px-4 flex flex-col items-center">
       <h1 className="text-5xl font-black mb-8 text-center text-slate-800 drop-shadow-md">
-        Cruzeiro do Sul <br />
-        <span className="text-yellow-500 text-6xl">Leaderboard</span>
+        Órbita
       </h1>
 
       <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-10 w-full max-w-lg">
@@ -105,10 +104,10 @@ export default function Leaderboard() {
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-5xl font-black text-slate-800">
+                <p className="text-5xl font-black text-slate-800 flex items-center justify-center">
                   {unit.totalPoints}
                 </p>
-                <p className="text-xl font-bold text-slate-500 uppercase tracking-widest">
+                <p className="text-xl font-bold text-slate-500 uppercase tracking-widest flex justify-center">
                   Points
                 </p>
               </div>

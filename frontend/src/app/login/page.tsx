@@ -43,7 +43,7 @@ export default function Login() {
           <h1 className="text-4xl font-black text-slate-800 mb-2">
             Admin Login
           </h1>
-          <p className="text-slate-500 font-bold">Cruzeiro do Sul</p>
+          <p className="text-slate-500 font-bold">Órbita</p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-6">

@@ -9,7 +9,7 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: "Cruzeiro do Sul",
+  title: "Órbita",
   description: "Pathfinder Club Ranking System",
 };
 

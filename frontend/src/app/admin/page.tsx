@@ -42,25 +42,25 @@ export default function AdminDashboard() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <Card className="p-8 rounded-3xl border-b-[8px] border-green-700 bg-green-500 text-white flex flex-col items-center text-center hover:scale-105 transition-transform">
-            <h2 className="text-3xl font-black mb-4">Create Challenge</h2>
+            <h2 className="text-3xl font-black mb-4">Criar Desafio</h2>
             <p className="text-lg font-bold mb-8 opacity-90">
-              Add new tasks for the units to complete
+              Adicione um novo desafio para as unidades completarem
             </p>
             <Link href="/admin/challenges/new" className="w-full">
               <Button className="w-full bg-white text-green-700 hover:bg-slate-100 border-b-4 border-slate-300 text-xl py-6 rounded-2xl">
-                Create New
+                Criar Novo Desafio
               </Button>
             </Link>
           </Card>
 
           <Card className="p-8 rounded-3xl border-b-[8px] border-purple-700 bg-purple-500 text-white flex flex-col items-center text-center hover:scale-105 transition-transform">
-            <h2 className="text-3xl font-black mb-4">Score Challenges</h2>
+            <h2 className="text-3xl font-black mb-4">Score dos Desafios</h2>
             <p className="text-lg font-bold mb-8 opacity-90">
-              Mark units as completed and award points
+              Marque unidades como concluídas e atribua pontos
             </p>
             <Link href="/admin/scoring" className="w-full">
               <Button className="w-full bg-white text-purple-700 hover:bg-slate-100 border-b-4 border-slate-300 text-xl py-6 rounded-2xl">
-                Go to Scoring
+                Ir para Pontuação
               </Button>
             </Link>
           </Card>
